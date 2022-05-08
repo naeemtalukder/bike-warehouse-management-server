@@ -46,7 +46,24 @@ async function run() {
             const query = { _id: ObjectId(id) };
             const result = await productCollection.deleteOne(query);
             res.send(result);
+        });
+
+        //ADD PRODUCT API
+        app.get('/addProduct', async (req, res) => {
+            const email = req.query.email;
+            console.log(email);
+            const query = { email: email };
+            const cursor = productCollection.find(query);
+            const addProduct = await cursor.toArray();
+            res.send(addProduct);
         })
+        //ADD PRODUCT DELETE 
+        app.delete('/addProduct/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await productCollection.deleteOne(query);
+            res.send(result);
+        });
     }
     finally {
 
