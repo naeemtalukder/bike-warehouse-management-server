@@ -31,6 +31,13 @@ async function run() {
             const query = { _id: ObjectId(id) };
             const product = await productCollection.findOne(query);
             res.send(product);
+        });
+
+        //POST
+        app.post('/product', async (req, res) => {
+            const newProduct = req.body;
+            const result = await productCollection.insertOne(newProduct);
+            req.send(result);
         })
     }
     finally {
